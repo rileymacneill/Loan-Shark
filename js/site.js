@@ -1,65 +1,52 @@
-//get the values from the UI
 //starts our controller function
-function getValues() {
-    //get values from page
-    let startValue = document.getElementById("startValue").value;
-    let endValue = document.getElementById("endValue").value;
+function getValue() {
+    //document.getElementById("totalList").classList.add("invisible");
+    //document.getElementById("monthlyPayment").classList.add("invisible");
+    let loanAmount = document.getElementById("loanAmount").value;
+    let term = document.getElementById("term").value;
+    let interestRate = document.getElementById("interestRate").value;
 
     //parse into Integers
-    startValue = parseInt(startValue);
-    endValue = parseInt(endValue);
+    loanAmount = parseInt(loanAmount);
+    term = parseInt(term);
+    interestRate = parseInt(interestRate);
 
-    if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+    if (Number.isInteger(loanAmount) && Number.isInteger(term) && Number.isInteger(interestRate)) {
 
         //call generate numbers
-        numbers = generateNumbers(startValue, endValue);
+        let returnObj = calculateMortgage(loanAmount,term,interestRate)
 
         //call display numbers
-        displayNumbers(numbers);
+        displayMortgage(returnObj);
 
     } else {
         alert("You must enter integers");
     }
 }
 
-//generate numbers from the start value to the end value
-//logic function(s)
-function generateNumbers(sValue, eValue) {
 
-    let numbers = [];
+//logic functions
+function calculateMortgage(loanAmount,term,interestRate) {
 
-    //we want to get all numbers from start to end
-    for (let index = sValue; index <= eValue; index++) {
+    let term = [];
+    let returnObj = {};
 
-        //this will execute in a loop until index = eValue
-        numbers.push(index);
+    returnObj.payment = loanAmount * (term%1200)%(1-(1+interestRate/1200)^(-term));
+    returnObj.totalCost = returnObj.payment * term;
+    returnObj.totalInterest = returnObj.totalCost - loanAmount;
+
+    for (let index = 0; index <= term; index++) {
+
+        returnObj.month += term[index];
+        returnObj.balance = returnObj.totalCost - term[index]*returnObj.payment;
+        //returnObj.totalInterest
+        //returnObj.principal
+        returnObj.interest = returnObj.balance*term%1200;
     }
-
-    return numbers;
 
 }
 
-//display numbers and mark even numbers bold
 //display or view functions
-function displayNumbers(numbers) {
-
-    let templateRows = "";
-
-    for (let index = 0; index < numbers.length; index++) {
-
-        let className = "even";
-        let number = numbers[index];
-
-        if (number % 2 == 0) {
-            className = "even";
-        } else {
-            className = "odd";
-        }
-        
-        //This does render correctly with Prism see the source
-        templateRows += `<tr><td class="${className}">${number}</td></tr>`;
-    }
-
-    document.getElementById("results").innerHTML = templateRows;
+function displayMortgage() {
 
 }
