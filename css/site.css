@@ -1,0 +1,87 @@
+:root {
+    --primary-color: #1d5888;
+    --secondary-color: #E7F900;
+    --dark-color: #292929;
+    --white-color: #dff3e4;
+}
+
+body {
+    color: var(--dark-color);
+}
+
+nav {
+    background-color: var(--dark-color);
+}
+
+footer {
+    background-color: var(--dark-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-color);
+}
+
+
+footer {
+    padding-right: 1rem;
+}
+
+footer .social>a {
+    color: var(--white-color);
+    opacity: 0.75;
+}
+
+footer .social>a:hover {
+    opacity: 0.9;
+    color: var(--dark-color);
+}
+
+.bsicon {
+    color: #602c50;
+}
+
+.jsicon {
+    color: #f0db4f;
+}
+
+.html5icon {
+    color: #f06529;
+}
+
+.cssicon {
+    color: #2965f1;
+}
+
+.checklist>li i {
+    color: var(--secondary-color);
+}
+
+code[class*="language-"],
+    pre[class*="language-"] {
+        white-space: pre-wrap;
+        word-break: break-all;
+        word-wrap: break-word;
+}
+
+.odd{
+    font-weight: 100;
+}
+
+.even{
+    font-weight: bold;
+}
+
+.logoFont{
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+main>.container {
+    padding: 60px 15px 0;
+    margin-bottom: 5rem;
+}
