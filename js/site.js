@@ -1,20 +1,20 @@
 //starts our controller function
-function getValue() {
+function getValues() {
     //document.getElementById("totalList").classList.add("invisible");
     //document.getElementById("monthlyPayment").classList.add("invisible");
-    let loanAmount = document.getElementById("loanAmount").value;
-    let term = document.getElementById("term").value;
-    let interestRate = document.getElementById("interestRate").value;
+    let loanAmount = document.getElementById("amountValue").value;
+    let termValue = document.getElementById("termValue").value;
+    let interestRate = document.getElementById("interestValue").value;
 
     //parse into Integers
     loanAmount = parseInt(loanAmount);
-    term = parseInt(term);
+    termValue = parseInt(termValue);
     interestRate = parseInt(interestRate);
 
-    if (Number.isInteger(loanAmount) && Number.isInteger(term) && Number.isInteger(interestRate)) {
+    if (Number.isInteger(loanAmount) && Number.isInteger(termValue) && Number.isInteger(interestRate)) {
 
         //call generate numbers
-        let returnObj = calculateMortgage(loanAmount,term,interestRate)
+        let returnObj = calculateMortgage(loanAmount,termValue,interestRate);
 
         //call display numbers
         displayMortgage(returnObj);
@@ -26,22 +26,22 @@ function getValue() {
 
 
 //logic functions
-function calculateMortgage(loanAmount,term,interestRate) {
+function calculateMortgage(loanAmount,termValue,interestRate) {
 
-    let term = [];
+    let termArray = [];
     let returnObj = {};
 
-    returnObj.payment = loanAmount * (term%1200)%(1-(1+interestRate/1200)^(-term));
-    returnObj.totalCost = returnObj.payment * term;
+    returnObj.payment = loanAmount * (termValue/1200)/(1-(1+interestRate/1200)**(-termValue));
+    returnObj.totalCost = returnObj.payment * termValue;
     returnObj.totalInterest = returnObj.totalCost - loanAmount;
 
-    for (let index = 0; index <= term; index++) {
+    for (let index = 0; index <= termValue; index++) {
 
-        returnObj.month += term[index];
-        returnObj.balance = returnObj.totalCost - term[index]*returnObj.payment;
+        returnObj.month += termValue[index];
+        returnObj.balance = returnObj.totalCost - termValue[index]*returnObj.payment;
         //returnObj.totalInterest
         //returnObj.principal
-        returnObj.interest = returnObj.balance*term%1200;
+        returnObj.interest = returnObj.balance*termValue%1200;
     }
 
 }

@@ -61,133 +61,40 @@
                 </div>
                 <div class="row">
                     <div class="col-6 bg-light border py-2">
-                        <div class="row">
+                        <form class="row">
                             <div class="col-12">
-                                <label class="form-label" for="loanAmount">Loan Amount</label>
-                                <input id="loanAmount" type="number" class="form-control" placeholder="Loan Amount"
+                                <label class="form-label" for="amountValue">Loan Amount</label>
+                                <input id="amountValue" type="number" class="form-control" placeholder="Loan Amount"
                                     aria-label="Loan Amount" value="15000">
                             </div>
                             <div class="col-12">
-                                <label class="form-label" for="term">Term (Months)</label>
-                                <input id="term" type="number" class="form-control" placeholder="Term (Months)"
-                                    aria-label="Term (Months)" value="60">
-
+                                <label class="form-label" for="termValue">Term (Months)</label>
+                                <input id="termValue" type="number" class="form-control" placeholder="Term (Months)"
+                                    aria-label="Term" value="2">
                             </div>
                             <div class="col-12">
-                                <label class="form-label" for="interestRate">Interest Rate (%)</label>
-                                <input id="interestRate" type="number" class="form-control" placeholder="interestRate"
-                                    aria-label="interestRate" value="5">
-
+                                <label class="form-label" for="interestValue">Interest Rate (%)</label>
+                                <input id="interestValue" type="number" class="form-control" placeholder="interestRate"
+                                    aria-label="Interest Rate" value="5">
                             </div>
                             <div class="col-12">
                                 <button id="submit" type="button" class="btn btn-primary mt-3">Calculate</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <h3 class="d-flex justify-content-center">Your Monthly Payments</h3>
-                        <div class="col-12 py-5">
-                            <span class="d-flex justify-content-center fontPayment invisible" id="monthlyPayment">
-                                <!--Monthly Payment JS-->
-                            </span>
-                        </div>
-                        <div class="row row-cols-2 px-5">
-                            <div class="col-6">
-                                <dl>
-                                    <dt>Total Principal</dt>
-                                    <dt>Total Investments</dt>
-                                    <dt>Total Costs</dt>
-                                </dl>
-                            </div>
-                            <div class="col-6">
-                                <dl class="invisible" id="totalList">
-                                    <dt id="totalPrincipal">
-                                        <!--Total Principal JS-->
-                                    </dt>
-                                    <dt id="totalInvestments">
-                                        <!--Total Investments JS-->
-                                    </dt>
-                                    <dt id="totalCosts">
-                                        <!--Total Costs JS-->
-                                    </dt>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </form>
-                <h2 class="mt-5 border-bottom border-2">Results</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped table-primary table-sm">
-                        <tr>
-                            <th>Month</th>
-                            <th>Payment ($/mt)</th>
-                            <th>Principal ($)</th>
-                            <th>Interest ($)</th>
-                            <th>Total Interest ($)</th>
-                            <th>Balance ($)</th>
-                        </tr>
-                        <tbody id="results">
-                            <!--Results Go Here-->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-    </main>
-
-    <!--Footer Section-->
-    <footer class="footer mt-auto py-3">
-        <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-lg-3 gy-2">
-                <div class="col text-light order-last order-lg-first">
-                    <div>
-                        <span class="text-muted">&copy;2022</span>
-                        &nbsp;Riley MacNeill | rileymacneill@gmail.com
-                    </div>
-                </div>
-                <div class="col d-flex align-items-center justify-content-start justify-content-lg-center">
-                    <img src="/img/Color logo - no background.svg" alt="RiMac Logo" height="30">
-                </div>
-                <div class="col d-flex align-items-center justify-content-start justify-content-lg-end">
-                    <div class="row">
-                        <div class="col social">
-                            <a href="https://www.linkedin.com/in/riley-macneill-8080b196/" target="_blank"><i
-                                    class="fab fa-linkedin fab-2x"></i></a>
-                        </div>
-                        <div class="col social">
-                            <a href="https://github.com/rileymacneill" target="_blank"><i
-                                    class="fab fa-github fab-2x"></i></a>
-                        </div>
-                        <div class="col social">
-                            <a href="https://twitter.com/riley_macneill" target="_blank"><i
-                                    class="fab fa-twitter fab-2x"></i></a>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <!--JS TEmplate-->
-    <template id="tableTemplate">
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-        </script>
-        <script src="/js/site.js"></script>
-        <script>
-            document.getElementById("submit").addEventListener("click", getValue);
-        </script>
+        
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+                crossorigin="anonymous">
+            </script>
+            <script src="/js/site.js"></script>
+            <script>
+                document.getElementById("submit").addEventListener("click", getValues);
+            </script>
 </body>
 
 </html>
