@@ -14,7 +14,7 @@ function getValues() {
     if (Number.isInteger(loanAmount) && Number.isInteger(termValue) && Number.isInteger(interestRate)) {
 
         //call generate numbers
-        let returnObj = calculateMortgage(loanAmount,termValue,interestRate);
+        let returnObj = calculateMortgage(loanAmount, termValue, interestRate);
 
         //call display numbers
         displayMortgage(returnObj);
@@ -26,27 +26,34 @@ function getValues() {
 
 
 //logic functions
-function calculateMortgage(loanAmount,termValue,interestRate) {
+function calculateMortgage(loanAmount, termValue, interestRate) {
 
-    let termArray = [];
     let returnObj = {};
 
-    returnObj.payment = loanAmount * (termValue/1200)/(1-(1+interestRate/1200)**(-termValue));
-    returnObj.totalCost = returnObj.payment * termValue;
+    returnObj.loanAmount = loanAmount;
+    returnObj.monthlyPayment = loanAmount * (interestRate / 1200) / (1 - (1 + interestRate / 1200) ** (-termValue));
+    returnObj.totalCost = returnObj.monthlyPayment * termValue;
     returnObj.totalInterest = returnObj.totalCost - loanAmount;
+    returnObj.totalTerm = termValue;
 
     for (let index = 0; index <= termValue; index++) {
 
-        returnObj.month += termValue[index];
-        returnObj.balance = returnObj.totalCost - termValue[index]*returnObj.payment;
-        //returnObj.totalInterest
-        //returnObj.principal
-        returnObj.interest = returnObj.balance*termValue%1200;
+        returnObj.month = index + 1;
+        returnObj.balance = returnObj.totalCost - returnObj.month * returnObj.monthlyPayment;
+        returnObj.interestPayment = returnObj.balance * returnObj.month / 1200;
+        returnObj.principalPayment = returnObj.monthlyPayment - returnObj.interestPayment;
     }
-
+    return returnObj;
 }
 
 //display or view functions
-function displayMortgage() {
+function displayMortgage(returnObj) {
 
-}
+    document.getElementById("monthlyPayment").innerHTML = `$${returnObj.monthlyPayment}`;
+    document.getElementById("totalPrincipal").innerHTML = `$${returnObj.loanAmount}`;
+    document.getElementById("totalInterest").innerHTML = `$${returnObj.totalInterest}`;
+    document.getElementById("totalCost").innerHTML = `$${returnObj.totalCost}`;
+    document.getElementById("monthResult").innerHTML = `${returnObj.month}`;
+    document.getElementById("paymentResult").innerHTML = `${returnObj.monthlyPayment}`;
+
+    }
