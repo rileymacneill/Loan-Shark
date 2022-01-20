@@ -1,7 +1,6 @@
 //starts our controller function
 function getValues() {
-    //document.getElementById("totalList").classList.add("invisible");
-    //document.getElementById("monthlyPayment").classList.add("invisible");
+
     let loanAmount = document.getElementById("amountValue").value;
     let termValue = document.getElementById("termValue").value;
     let interestRate = document.getElementById("interestValue").value;
@@ -85,8 +84,6 @@ function displayMortgage(tableArray) {
         rowCols[4].textContent = tableArray[index + 4];
         rowCols[5].textContent = tableArray[index + 5];
 
-
         tableBody.appendChild(tableRow);
     }
-
 }

@@ -60,69 +60,93 @@
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                        //get the values from the UI
-//starts our controller function
+                        //starts our controller function
 function getValues() {
-    //get values from page
-    let startValue = document.getElementById("startValue").value;
-    let endValue = document.getElementById("endValue").value;
+
+    let loanAmount = document.getElementById("amountValue").value;
+    let termValue = document.getElementById("termValue").value;
+    let interestRate = document.getElementById("interestValue").value;
 
     //parse into Integers
-    startValue = parseInt(startValue);
-    endValue = parseInt(endValue);
+    loanAmount = parseInt(loanAmount);
+    termValue = parseInt(termValue);
+    interestRate = parseInt(interestRate);
 
-    if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+    if (Number.isInteger(loanAmount) && Number.isInteger(termValue) && Number.isInteger(interestRate)) {
 
         //call generate numbers
-        numbers = generateNumbers(startValue, endValue);
+        let tableArray = calculateMortgage(loanAmount, termValue, interestRate);
 
         //call display numbers
-        displayNumbers(numbers);
+        displayMortgage(tableArray);
 
     } else {
         alert("You must enter integers");
     }
 }
 
-//generate numbers from the start value to the end value
-//logic function(s)
-function generateNumbers(sValue, eValue) {
+//logic functions
+function calculateMortgage(loanAmount, termValue, interestRate) {
 
-    let numbers = [];
+    let returnArray = [];
+ 
+    monthlyPayment = loanAmount * (interestRate / 1200) / (1 - (1 + interestRate / 1200) ** (-termValue));
+    totalCost = monthlyPayment * termValue;
+    totalInterest = totalCost - loanAmount;
+    loanTotal = loanAmount;
+    balRemaining = loanTotal;
+    interestSum = 0;
 
-    //we want to get all numbers from start to end
-    for (let index = sValue; index <= eValue; index++) {
+    for (let index = 1; index <= termValue; index++) {
 
-        //this will execute in a loop until index = eValue
-        numbers.push(index);
+        //Month
+        returnArray.push(index);
+        //Monthly Payment
+        returnArray.push(monthlyPayment.toFixed(2));
+        //Interest Payment
+        interestPayment = balRemaining * interestRate / 1200;
+        returnArray.push(interestPayment.toFixed(2));
+        //Principal Payment
+        principalPayment = monthlyPayment - interestPayment;
+        returnArray.push(principalPayment.toFixed(2));
+        //Total Interest
+        interestSum = interestSum + interestPayment;
+        returnArray.push(interestSum.toFixed(2));
+        //Remaining Balance
+        balRemaining = balRemaining - principalPayment;
+        returnArray.push(balRemaining.toFixed(2));
     }
-
-    return numbers;
-
+    return returnArray;
 }
 
-//display numbers and mark even numbers bold
 //display or view functions
-function displayNumbers(numbers) {
+function displayMortgage(tableArray) {
 
-    let templateRows = "";
+    let tableBody = document.getElementById("results");
+    //Get the template
+    let templateRow = document.getElementById("appResultsTemplate");
 
-    for (let index = 0; index < numbers.length; index++) {
+    document.getElementById("monthlyPayment").innerHTML = `$${monthlyPayment.toFixed(2)}`;
+    document.getElementById("totalPrincipal").innerHTML = `$${loanTotal.toFixed(2)}`;
+    document.getElementById("totalInterest").innerHTML = `$${totalInterest.toFixed(2)}`;
+    document.getElementById("totalCost").innerHTML = `$${totalCost.toFixed(2)}`;
 
-        let className = "even";
-        let number = numbers[index];
+    tableBody.innerHTML = "";
 
-        if (number % 2 == 0) {
-            className = "even";
-        } else {
-            className = "odd";
-        }
-        //This does render correctly with Prism see the source
-        templateRows += `<tr><td class="${className}">${number}</td></tr>`;
+    for (let index = 0; index <= tableArray.length; index += 6) {
+        let tableRow = document.importNode(templateRow.content, true);
+        //Grab the 'td' and put into an array
+        let rowCols = tableRow.querySelectorAll("td");
+
+        rowCols[0].textContent = tableArray[index];
+        rowCols[1].textContent = tableArray[index + 1];
+        rowCols[2].textContent = tableArray[index + 3];
+        rowCols[3].textContent = tableArray[index + 2];
+        rowCols[4].textContent = tableArray[index + 4];
+        rowCols[5].textContent = tableArray[index + 5];
+
+        tableBody.appendChild(tableRow);
     }
-
-    document.getElementById("results").innerHTML = templateRows;
-
 }
                         </code>
                     </pre>
@@ -135,11 +159,11 @@ function displayNumbers(numbers) {
                     </div>
                     <div>
                         <h5>function generateNumbers()</h5>
-                    <p>This function runs a loop and places the numbers in an array. The array is then used in the following function.</p>
+                    <p>This function runs a loop and places 6 categories of numbers/calculations in an array. The array is then used in the following function.</p>
                     </div>
                     <div>
                         <h5>function displayNumbers()</h5>
-                    <p>This function inputs the array into a table which is printed on the HTML page. The function also bolds all of the even numbers.</p>
+                    <p>This function inputs the array into a table which is printed on the HTML page.</p>
                     </div>
                 </div>
             </div>
