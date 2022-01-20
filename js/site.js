@@ -14,10 +14,10 @@ function getValues() {
     if (Number.isInteger(loanAmount) && Number.isInteger(termValue) && Number.isInteger(interestRate)) {
 
         //call generate numbers
-        let returnObj = calculateMortgage(loanAmount, termValue, interestRate);
+        let tableArray = calculateMortgage(loanAmount, termValue, interestRate);
 
         //call display numbers
-        displayMortgage(returnObj);
+        displayMortgage(tableArray);
 
     } else {
         alert("You must enter integers");
@@ -28,32 +28,65 @@ function getValues() {
 //logic functions
 function calculateMortgage(loanAmount, termValue, interestRate) {
 
-    let returnObj = {};
+    let returnArray = [];
+ 
+    monthlyPayment = loanAmount * (interestRate / 1200) / (1 - (1 + interestRate / 1200) ** (-termValue));
+    totalCost = monthlyPayment * termValue;
+    totalInterest = totalCost - loanAmount;
+    loanTotal = loanAmount;
+    balRemaining = loanTotal;
+    interestSum = 0;
 
-    returnObj.loanAmount = loanAmount;
-    returnObj.monthlyPayment = loanAmount * (interestRate / 1200) / (1 - (1 + interestRate / 1200) ** (-termValue));
-    returnObj.totalCost = returnObj.monthlyPayment * termValue;
-    returnObj.totalInterest = returnObj.totalCost - loanAmount;
-    returnObj.totalTerm = termValue;
+    for (let index = 1; index <= termValue; index++) {
 
-    for (let index = 0; index <= termValue; index++) {
-
-        returnObj.month = index + 1;
-        returnObj.balance = returnObj.totalCost - returnObj.month * returnObj.monthlyPayment;
-        returnObj.interestPayment = returnObj.balance * returnObj.month / 1200;
-        returnObj.principalPayment = returnObj.monthlyPayment - returnObj.interestPayment;
+        //Month
+        returnArray.push(index);
+        //Monthly Payment
+        returnArray.push(monthlyPayment.toFixed(2));
+        //Interest Payment
+        interestPayment = balRemaining * interestRate / 1200;
+        returnArray.push(interestPayment.toFixed(2));
+        //Principal Payment
+        principalPayment = monthlyPayment - interestPayment;
+        returnArray.push(principalPayment.toFixed(2));
+        //Total Interest
+        interestSum = interestSum + interestPayment;
+        returnArray.push(interestSum.toFixed(2));
+        //Remaining Balance
+        balRemaining = balRemaining - principalPayment;
+        returnArray.push(balRemaining.toFixed(2));
     }
-    return returnObj;
+    return returnArray;
 }
 
 //display or view functions
-function displayMortgage(returnObj) {
+function displayMortgage(tableArray) {
 
-    document.getElementById("monthlyPayment").innerHTML = `$${returnObj.monthlyPayment}`;
-    document.getElementById("totalPrincipal").innerHTML = `$${returnObj.loanAmount}`;
-    document.getElementById("totalInterest").innerHTML = `$${returnObj.totalInterest}`;
-    document.getElementById("totalCost").innerHTML = `$${returnObj.totalCost}`;
-    document.getElementById("monthResult").innerHTML = `${returnObj.month}`;
-    document.getElementById("paymentResult").innerHTML = `${returnObj.monthlyPayment}`;
+    let tableBody = document.getElementById("results");
+    //Get the template
+    let templateRow = document.getElementById("appResultsTemplate");
 
+    document.getElementById("monthlyPayment").innerHTML = `$${monthlyPayment.toFixed(2)}`;
+    document.getElementById("totalPrincipal").innerHTML = `$${loanTotal.toFixed(2)}`;
+    document.getElementById("totalInterest").innerHTML = `$${totalInterest.toFixed(2)}`;
+    document.getElementById("totalCost").innerHTML = `$${totalCost.toFixed(2)}`;
+
+    tableBody.innerHTML = "";
+
+    for (let index = 0; index <= tableArray.length; index += 6) {
+        let tableRow = document.importNode(templateRow.content, true);
+        //Grab the 'td' and put into an array
+        let rowCols = tableRow.querySelectorAll("td");
+
+        rowCols[0].textContent = tableArray[index];
+        rowCols[1].textContent = tableArray[index + 1];
+        rowCols[2].textContent = tableArray[index + 3];
+        rowCols[3].textContent = tableArray[index + 2];
+        rowCols[4].textContent = tableArray[index + 4];
+        rowCols[5].textContent = tableArray[index + 5];
+
+
+        tableBody.appendChild(tableRow);
     }
+
+}

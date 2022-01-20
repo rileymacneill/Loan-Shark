@@ -83,39 +83,39 @@
                         </form>
                     </div>
                     <div class="col-6">
-                        <h3 class="d-flex justify-content-center">Your Monthly Payments</h3>
-                        <div class="col-12 py-5">
-                            <span class="d-flex justify-content-center fontPayment" id="monthlyPayment">
-                                <!--Monthly Payment JS-->
-                            </span>
-                        </div>
-                        <div class="row row-cols-2 px-5">
-                            <div class="col-6">
-                                <dl>
-                                    <dt>Total Principal</dt>
-                                    <dt>Total Interest</dt>
-                                    <dt>Total Cost</dt>
-                                </dl>
+                        <div class="row">
+                            <h3 class="d-flex justify-content-center">Your Monthly Payments</h3>
+                            <div class="col-12 py-5">
+                                <span class="d-flex justify-content-center fontPayment" id="monthlyPayment">
+                                    <!--Monthly Payment JS-->
+                                </span>
                             </div>
-                            <div class="col-6">
-                                <dl class="visible" id="totalList">
-                                    <dt id="totalPrincipal">
-                                        <!--Total Principal JS-->
-                                    </dt>
-                                    <dt id="totalInterest">
-                                        <!--Total Interest JS-->
-                                    </dt>
-                                    <dt id="totalCost">
-                                        <!--Total Cost JS-->
-                                    </dt>
-                                </dl>
+                        </div>
+                        <div class="row px-5">
+                            <div class="row row-cols-1 row-cols-sm-2">
+                                <div class="col d-flex justify-content-center justify-content-sm-start text-nowrap"><strong>Total Principal</strong></div>
+                                <div class="col d-flex justify-content-center justify-content-sm-end" id="totalPrincipal">
+                                    <!--Total Principal JS-->
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 row-cols-sm-2">
+                                <div class="col d-flex justify-content-center justify-content-sm-start text-nowrap"><strong>Total Interest</strong></div>
+                                <div class="col d-flex justify-content-center justify-content-sm-end" id="totalInterest">
+                                    <!--Total Interest JS-->
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 row-cols-sm-2">
+                                <div class="col d-flex justify-content-center justify-content-sm-start text-nowrap"><strong>Total Cost</strong></div>
+                                <div class="col d-flex justify-content-center justify-content-sm-end" id="totalCost">
+                                    <!--Total Cost JS-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <h2 class="mt-5 border-bottom border-2">Results</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-primary table-sm">
+                    <table class="table table-striped table-ligth">
                         <tr>
                             <th>Month</th>
                             <th>Payment ($/mt)</th>
@@ -125,39 +125,67 @@
                             <th>Balance ($)</th>
                         </tr>
                         <tbody id="results">
-                            <td id="monthResult"></td>
-                            <td id="paymentResult"></td>
-                            <td id="principalResult"></td>
-                            <td id="interestResult"></td>
-                            <td id="totalInterestResult"></td>
-                            <td id="balnceResult"></td>
+                            <!--Results Go Here-->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+    </main>
 
-        <!--Footer Section-->
+    <!--Footer Section-->
+    <footer class="footer mt-auto py-3">
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-lg-3 gy-2">
+                <div class="col text-light order-last order-lg-first">
+                    <div>
+                        <span class="text-muted">&copy;2022</span>
+                        &nbsp;Riley MacNeill | rileymacneill@gmail.com
+                    </div>
+                </div>
+                <div class="col d-flex align-items-center justify-content-start justify-content-lg-center">
+                    <img src="/img/Color logo - no background.svg" alt="RiMac Logo" height="30">
+                </div>
+                <div class="col d-flex align-items-center justify-content-start justify-content-lg-end">
+                    <div class="row">
+                        <div class="col social">
+                            <a href="https://www.linkedin.com/in/riley-macneill-8080b196/" target="_blank"><i
+                                    class="fab fa-linkedin fab-2x"></i></a>
+                        </div>
+                        <div class="col social">
+                            <a href="https://github.com/rileymacneill" target="_blank"><i
+                                    class="fab fa-github fab-2x"></i></a>
+                        </div>
+                        <div class="col social">
+                            <a href="https://twitter.com/riley_macneill" target="_blank"><i
+                                    class="fab fa-twitter fab-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        <!--JS TEmplate
-        <template id="appResultsTemplate">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </template>-->
+    <!--JS TEmplate-->
+    <template id="appResultsTemplate">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </template>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-        </script>
-        <script src="/js/site.js"></script>
-        <script>
-            document.getElementById("submit").addEventListener("click", getValues);
-        </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+    </script>
+    <script src="/js/site.js"></script>
+    <script>
+        document.getElementById("submit").addEventListener("click", getValues);
+    </script>
 </body>
 
 </html>
